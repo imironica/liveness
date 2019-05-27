@@ -1,3 +1,4 @@
+import os
 from sklearn import svm
 from sklearn import tree
 from sklearn.metrics import accuracy_score, confusion_matrix
@@ -11,12 +12,15 @@ from sklearn.linear_model import SGDClassifier
 
 import pandas as pd
 
-featureName = 'glcm'
-featureName = 'LBP'
+
+featureName = 'HOG'
 featureName = '256_SIFT'
 featureName = '512_SIFT'
 
+featureName = 'glcm'
 featureName = 'LBP'
+
+
 
 computeNearestNeighbors = True
 computeSVM = True
@@ -28,18 +32,24 @@ computeGradientBoosting = True
 computeRandomForest = True
 computeExtremellyRandomForest = True
 
-xTrainFilename = '../features/xTrain_{}.csv'.format(featureName)
-xTestFilename = '../features/xTest_{}.csv'.format(featureName)
-yTrainFilename = '../features/yTrain_{}.csv'.format(featureName)
-yTestFilename = '../features/yTest_{}.csv'.format(featureName)
+xTrainFilename = 'features/xTrain_{}.csv'.format(featureName)
+xTestFilename = 'features/xTest_{}.csv'.format(featureName)
+yTrainFilename = 'features/yTrain_{}.csv'.format(featureName)
+yTestFilename = 'features/yTest_{}.csv'.format(featureName)
 
-xTrain = pd.read_csv(xTrainFilename).as_matrix()
-xTest = pd.read_csv(xTestFilename).as_matrix()
+xTrain = pd.read_csv(xTrainFilename).values
+xTest = pd.read_csv(xTestFilename).values
 
 yTrain = pd.read_csv(yTrainFilename).values
 yTest = pd.read_csv(yTestFilename).values
 
-fileResults = '../results/{}.txt'.format(featureName)
+yTrain = yTrain.reshape((yTrain.shape[0],))
+yTest = yTest.reshape((yTest.shape[0],))
+
+if not os.path.exists('results'):
+    os.mkdir('results')
+
+fileResults = 'results/{}.txt'.format(featureName)
 f = open(fileResults, "w")
 # =================================================================================================#
 # Nearest neighbor

@@ -138,21 +138,37 @@ def saveFaces():
     dfTrain, dfTest = readDb()
     faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-    if not os.path.exists('/db_faces'):
-        os.mkdir('/db_faces')
+    if not os.path.exists('db_faces'):
+        os.mkdir('db_faces')
+
+    if not os.path.exists('db_faces/train'):
+        os.mkdir('db_faces/train')
+    if not os.path.exists('db_faces/train/0'):
+        os.mkdir('db_faces/train/0')
+    if not os.path.exists('db_faces/train/1'):
+        os.mkdir('db_faces/train/1')
+    if not os.path.exists('db_faces/test'):
+        os.mkdir('db_faces/test')
+    if not os.path.exists('db_faces/test/0'):
+        os.mkdir('db_faces/test/0')
+    if not os.path.exists('db_faces/test/1'):
+        os.mkdir('db_faces/test/1')
 
 
     for index, row in dfTrain.iterrows():
         path = str(row['Path'])
+        label = str(row['Label'])
         roi, maxRectangle = readColorFace(faceCascade, path)
-        newPath = path.replace('db', 'db_faces')
+        newPath = 'db_faces/train/{}/{}.jpg'.format(label, index)
+        print(newPath)
         if maxRectangle[2] > 0 and maxRectangle[3] > 0:
             scipy.misc.imsave(newPath, roi)
 
     for index, row in dfTest.iterrows():
         path = row['Path']
+        label = str(row['Label'])
         roi, maxRectangle = readColorFace(faceCascade, path)
-        newPath = path.replace('db', 'db_faces')
+        newPath = 'db_faces/test/{}/{}.jpg'.format(label, index)
         if maxRectangle[2] > 0 and maxRectangle[3] > 0:
             scipy.misc.imsave(newPath, roi)
 
