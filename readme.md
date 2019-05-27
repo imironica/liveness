@@ -14,6 +14,29 @@ In those situations it’s entirely possible for the face held up to the camera 
 
 ![Fake face](db/ImposterRaw/0001/0001_00_00_01_0.jpg)
 
+
+There are a number of approaches to liveness detection, including:
+
+- Texture analysis, including computing Local Binary Patterns (LBPs) over face regions and using an SVM to classify the faces as real or spoofed.
+
+- Frequency analysis, such as examining the Fourier domain of the face.
+
+- Variable focusing analysis, such as examining the variation of pixel values between two consecutive frames.
+
+
+-  Heuristic-based algorithms, including eye movement, lip movement, and blink detection. These set of algorithms attempt to track eye movement and blinks to ensure the user is not holding up a photo of another person (since a photo will not blink or move its lips).
+
+
+-  Optical Flow algorithms, namely examining the differences and properties of optical flow generated from 3D objects and 2D planes.
+
+
+- 3D face shape, similar to what is used on Apple’s iPhone face recognition system, enabling the face recognition system to distinguish between real faces and printouts/photos/images of another person.
+
+- deep learning approaches: build an adapted network for liveness detection or use a transfer learning approach
+
+
+Combinations of the above, enabling a face recognition system engineer to pick and choose the liveness detections models appropriate for their particular application.
+
 ### 2. Steps:
 
 1) run 1_extractFaces.py  - extracts the faces from test images
@@ -32,9 +55,9 @@ In those situations it’s entirely possible for the face held up to the camera 
 3) Test features:
 -  run *3_testFeatures.py*  compute the accuracy performance for each feature / classifier (Nearest Neighbors, SVM, SGD, Naive Bayes, Decision Trees, Adaboost, Gradient Boosting, Random Forest, Extremelly RandomForest)
 
-4) Create a net from scratch
+4) Create a net from scratch: TODO
    
-5) TODO: Transfer learning with MobileNet ang Resnet50
+5) Transfer learning with MobileNet ang Resnet50: TODO
 
 ### 3. Results
 
