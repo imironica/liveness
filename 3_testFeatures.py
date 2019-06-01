@@ -13,12 +13,12 @@ from sklearn.linear_model import SGDClassifier
 import pandas as pd
 
 
-featureName = 'HOG'
-featureName = '256_SIFT'
-featureName = '512_SIFT'
+#featureName = 'HOG'
+#featureName = '256_SIFT'
+#featureName = '512_SIFT'
 
 featureName = 'glcm'
-featureName = 'LBP'
+#featureName = 'LBP'
 
 
 
@@ -210,27 +210,33 @@ if computeExtremellyRandomForest:
 
 # Support vector machines
 descriptorName = 'SVM Linear'
+# keep only max value 
 cValues = [0.01, 0.1, 1, 10, 100, 500, 1000, 2000]
 if computeSVM:
+    max_accuracy = 0
     for cValue in cValues:
         descriptorName = 'Linear SVM with C={} '.format(cValue)
         print("Train {}".format(descriptorName))
         clfSVM = svm.SVC(C=cValue, kernel='linear', verbose=False, probability=True)
         clfSVM.fit(xTrain, yTrain)
-
         # Compute the accuracy of the model
         valuePredicted = clfSVM.predict(xTest)
         accuracy = accuracy_score(y_true=yTest, y_pred=valuePredicted)
+        
         confusionMatrix = confusion_matrix(y_true=yTest, y_pred=valuePredicted)
         print('{}: {}'.format(descriptorName, accuracy))
-        print(confusionMatrix)
-        f.write("\nTrain {}".format(descriptorName))
-        f.write('\nAccuracy: {}'.format(accuracy))
-        f.write('\nConfusion matrix:\n {}\n'.format(str(confusionMatrix)))
+        if(accuracy > max_accuracy):
+            max_accuracy = accuracy
+            conf_matrix = confusionMatrix
+            desc_name = descriptorName
+    f.write("\nTrain {}".format(desc_name))
+    f.write('\nAccuracy: {}'.format(max_accuracy))
+    f.write('\nConfusion matrix:\n {}\n'.format(str(conf_matrix)))
 
 descriptorName = 'SVM RBF'
 cValues = [0.01, 0.1, 1, 10, 100, 500, 1000, 2000, 4000, 10000, 2000000]
 if computeSVM:
+    max_accuracy = 0
     for cValue in cValues:
         descriptorName = 'SVM with C={} '.format(cValue)
         print("Train {}".format(descriptorName))
@@ -242,10 +248,14 @@ if computeSVM:
         # Compute the accuracy of the model
         valuePredicted = clfSVM.predict(xTest)
         accuracy = accuracy_score(y_true=yTest, y_pred=valuePredicted)
+        
         confusionMatrix = confusion_matrix(y_true=yTest, y_pred=valuePredicted)
         print('{}: {}'.format(descriptorName, accuracy))
-        print(confusionMatrix)
-        f.write("\nTrain {}".format(descriptorName))
-        f.write('\nAccuracy: {}'.format(accuracy))
-        f.write('\nConfusion matrix:\n {}\n'.format(str(confusionMatrix)))
+        if(accuracy > max_accuracy):
+            max_accuracy = accuracy
+            conf_matrix = confusionMatrix
+            desc_name = descriptorName
+    f.write("\nTrain {}".format(desc_name))
+    f.write('\nAccuracy: {}'.format(max_accuracy))
+    f.write('\nConfusion matrix:\n {}\n'.format(str(conf_matrix)))
 

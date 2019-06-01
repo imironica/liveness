@@ -48,10 +48,11 @@ def readFaces(faceCascade, path):
                 maxRectangle[0]:maxRectangle[0] + maxRectangle[2]]
     return roi, maxRectangle
 
-
+  
 def testFaceRecognitionAlgorithm():
+    print('---- Detecting faces using cv2 HAAR Cascade')
     dfTrain, dfTest = readDb()
-
+    #detect face with pre-trained classifier
     faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
     invalid = 0
     i = 0
@@ -85,9 +86,42 @@ def testFaceRecognitionAlgorithm():
     print("Training db has {} unrecognized faces".format(invalidTrainDb))
     print("Test db has {} unrecognized faces".format(invalid))
 
+def testDlibFaceDetector():
+    import dlib
+    dlib.DLIB_USE_CUDA = True
+    print('---- Detecting faces using dlib HOG')
+    # Load face dlib detector
+    hog_face_detector = dlib.get_frontal_face_detector()
+    dfTrain, dfTest = readDb()
+    invalid = 0
 
+    print('Verify how many faces can be extracted on training set ...')
+    for index, row in dfTrain.iterrows():
+        path = row['Path']
+        img = dlib.load_rgb_image(path)
 
-def readFaces(faceCascade, path):
+        dets = hog_face_detector(img,1)
+
+        if(len(dets) == 0):
+            invalid += 1
+
+    invalidTrainDb = invalid
+    print('Verify how many faces can be extracted on test set ...')
+    invalid = 0
+
+    for index, row in dfTest.iterrows():
+        path = row['Path']
+        img = dlib.load_rgb_image(path)
+
+        dets = hog_face_detector(img,1)
+        if(len(dets) == 0):
+            invalid += 1
+        
+
+    print("Training db has {} unrecognized faces".format(invalidTrainDb))
+    print("Test db has {} unrecognized faces".format(invalid))
+
+""" def readFaces(faceCascade, path):
 
     img = cv2.imread(path)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -107,7 +141,7 @@ def readFaces(faceCascade, path):
 
     roi = gray[maxRectangle[1]:maxRectangle[1] + maxRectangle[3],
                 maxRectangle[0]:maxRectangle[0] + maxRectangle[2]]
-    return roi, maxRectangle
+    return roi, maxRectangle """
 
 def readColorFace(faceCascade, path):
 
