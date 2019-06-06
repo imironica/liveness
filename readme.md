@@ -52,17 +52,21 @@ Combinations of the above, enabling a face recognition system engineer to pick a
 
 4. Create a net from scratch:
    Structure images dataset folder as follow:
-   ./dataset/
-   real/
-   fake/
+
+   ```
+     /dataset
+      ├── /real
+      ├── /fake
+
+   ```
 
 Create folder test_net which contains images to run trained model
 
-- run \*extract_faces.py - Detect faces from each image from dataset and save to face_dataset folder
-- run \*train_livenessNet.py - Train network with face images set extracted before and classify to real and spoofed(fake)
-- run \*test_livenessNet.py - Test and use trained model
+- run _extract_faces.py_ - Detect faces from each image from dataset and save to face_dataset folder
+- run _train_livenessNet.py_ - Train network with face images set extracted before and classify to real and spoofed(fake)
+- run _test_livenessNet.py_ - Test and use trained model
 
-Note: run \*augment_img.py if augmented data needed. [Augmentor](https://augmentor.readthedocs.io/en/master/code.html) library is used
+Note: run _augment_img.py_ if augmented data needed. [Augmentor](https://augmentor.readthedocs.io/en/master/code.html) library is used
 
 5. Transfer learning with MobileNet ang Resnet50: TODO
 
