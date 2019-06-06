@@ -1,5 +1,5 @@
 import Augmentor
-p = Augmentor.Pipeline("./augument")
+p = Augmentor.Pipeline("./augment")
 
 # Add operations to the pipeline as normal:
 p.rotate(probability=0.5, max_left_rotation=5, max_right_rotation=5)
