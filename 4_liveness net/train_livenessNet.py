@@ -23,8 +23,8 @@ label_encoder = './le.pickle'
 # initialize the initial learning rate, batch size, and number of
 # epochs to train for
 INIT_LR = 1e-4
-BS = 64
-EPOCHS = 50
+BS = 32
+EPOCHS = 100
 
 # grab the list of images in our dataset directory, then initialize
 # the list of data (i.e., images) and class images
