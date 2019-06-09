@@ -4,7 +4,7 @@ import cv2
 from skimage import io
 import dlib
 from imutils import paths
-from utils import image_resize
+from util import readDb, image_resize
 
 #HOG face detector
 hog_detector = dlib.get_frontal_face_detector()

@@ -70,7 +70,8 @@ Combinations of the above, enabling a face recognition system engineer to pick a
   **Note**: run _augment_img.py_ if augmented data needed. [Augmentor](https://augmentor.readthedocs.io/en/master/code.html) library is used
 
 5. Transfer learning with MobileNet ang Resnet50:
-   Using keras [MobileNet v2](https://keras.io/applications/#mobilenetv2)
+
+Using keras [MobileNet v2](https://keras.io/applications/#mobilenetv2)
 
 Structure images dataset folder as follow:
 

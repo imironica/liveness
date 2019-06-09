@@ -26,36 +26,46 @@ class LivenessNet:
 			inputShape = (depth, height, width)
 			chanDim = 1
 
-            # first CONV => RELU => CONV => RELU => POOL layer set
-		model.add(Conv2D(16, (3, 3), padding="same",
+        # first CONV => RELU => CONV => RELU => POOL layer set
+		model.add(Conv2D(32, (3, 3), padding="same",
 			input_shape=inputShape))
 		model.add(Activation("relu"))
 		model.add(BatchNormalization(axis=chanDim))
-		model.add(Conv2D(16, (3, 3), padding="same"))
+		model.add(Conv2D(32, (3, 3), padding="same"))
 		model.add(Activation("relu"))
 		model.add(BatchNormalization(axis=chanDim))
 		model.add(MaxPooling2D(pool_size=(2, 2)))
 		model.add(Dropout(0.25))
 
 		# second CONV => RELU => CONV => RELU => POOL layer set
-		model.add(Conv2D(32, (3, 3), padding="same"))
+		model.add(Conv2D(64, (3, 3), padding="same"))
 		model.add(Activation("relu"))
 		model.add(BatchNormalization(axis=chanDim))
-		model.add(Conv2D(32, (3, 3), padding="same"))
+		model.add(Conv2D(64, (3, 3), padding="same"))
 		model.add(Activation("relu"))
 		model.add(BatchNormalization(axis=chanDim))
 		model.add(MaxPooling2D(pool_size=(2, 2)))
 		model.add(Dropout(0.25))
- 
+
+		# second CONV => RELU => CONV => RELU => POOL layer set
+		model.add(Conv2D(128, (3, 3), padding="same"))
+		model.add(Activation("relu"))
+		model.add(BatchNormalization(axis=chanDim))
+		model.add(Conv2D(128, (3, 3), padding="same"))
+		model.add(Activation("relu"))
+		model.add(BatchNormalization(axis=chanDim))
+		model.add(MaxPooling2D(pool_size=(2, 2)))
+		model.add(Dropout(0.25))
+
 		# third CONV => RELU => CONV => RELU => POOL layer set
-		model.add(Conv2D(64, (3, 3), padding="same"))
+		model.add(Conv2D(256, (3, 3), padding="same"))
 		model.add(Activation("relu"))
 		model.add(BatchNormalization(axis=chanDim))
-		model.add(Conv2D(64, (3, 3), padding="same"))
+		model.add(Conv2D(256, (3, 3), padding="same"))
 		model.add(Activation("relu"))
 		model.add(BatchNormalization(axis=chanDim))
 		model.add(MaxPooling2D(pool_size=(2, 2)))
-		model.add(Dropout(0.25))
+		model.add(Dropout(0.5))
 
         # first (and only) set of FC => RELU layers
 		model.add(Flatten())
