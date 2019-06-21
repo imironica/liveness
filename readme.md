@@ -51,17 +51,6 @@ Combinations of the above, enabling a face recognition system engineer to pick a
 - run _3_testFeatures.py_ compute the accuracy performance for each feature / classifier (Nearest Neighbors, SVM, SGD, Naive Bayes, Decision Trees, Adaboost, Gradient Boosting, Random Forest, Extremelly RandomForest)
 
 4. Create a net from scratch:
-   Structure images dataset folder as follow:
-
-   ```
-    /4_liveness net
-    ├─┬ /dataset
-    │ ├── /real
-    │ ├── /fake
-    ├─┬ /face_dataset _contains face detected images
-    ├─┬ /test_net   _contains images to run trained model_
-    ├─┬ /augment _contains images to augment_
-   ```
 
 - run _extract_faces.py_ - Detect faces from each image from dataset and save to `face_dataset` folder
 - run _train_livenessNet.py_ - Train network with face images set extracted before and classify to real and spoofed(fake)
@@ -73,18 +62,6 @@ Combinations of the above, enabling a face recognition system engineer to pick a
 
 Using keras [MobileNet v2](https://keras.io/applications/#mobilenetv2)
 
-Structure images dataset folder as follow:
-
-```
- /5_transfer_learning
- ├─┬ /face_dataset
- │ ├── /real
- │ ├── /fake
- ├─┬ /test_net   _contains images to run trained model_
-```
-
-**Note**: Can use `face_dataset` created on step 4
-
 - run _mobile_net.py_ to train model.
   - We are not using weights pre-trained on ImageNet. `layer.trainable=True`
   - Using Adam optimizer
@@ -93,4 +70,32 @@ Structure images dataset folder as follow:
 
 ### 3. Results
 
-TODO
+Liveness CNN Results
+
+Confusion Matrix
+
+|         | Spoofed | Real |
+| ------- | :-----: | ---: |
+| Spoofed |  3579   |  734 |
+| Real    |   896   | 3019 |
+
+|         | Precision | Recall |
+| ------- | :-------: | -----: |
+| Spoofed |   0.80    |   0.83 |
+| Real    |   0.80    |   0.77 |
+
+---
+
+MobileNet Results
+
+Confusion Matrix
+
+|         | Spoofed | Real |
+| ------- | :-----: | ---: |
+| Spoofed |  3898   |  415 |
+| Real    |   802   | 3113 |
+
+|         | Precision | Recall |
+| ------- | :-------: | -----: |
+| Spoofed |   0.84    |   0.90 |
+| Real    |   0.88    |   0.84 |
