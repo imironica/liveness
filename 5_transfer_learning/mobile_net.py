@@ -64,7 +64,7 @@ new_model.compile(optimizer=adam_opt, loss="sparse_categorical_crossentropy", me
 
 step_size_train = train_generator.n//train_generator.batch_size
 step_size_validation = validation_generator.samples // validation_generator.batch_size
-H = new_model.fit_generator(train_generator,
+H = new_model.fit(train_generator,
                    steps_per_epoch=step_size_train,
                    validation_data = validation_generator,
                    validation_steps = step_size_validation,
@@ -79,8 +79,8 @@ labels = (train_generator.class_indices)
 print(labels)
 
 # summarize history for accuracy
-plt.plot(H.history['acc'])
-plt.plot(H.history['val_acc'])
+plt.plot(H.history['accuracy'])
+plt.plot(H.history['val_accuracy'])
 plt.title('model accuracy')
 plt.ylabel('accuracy')
 plt.xlabel('epoch')
@@ -95,7 +95,7 @@ plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
 plt.show()
 
-Y_pred = new_model.predict_generator(validation_generator, validation_generator.samples // BS + 1)
+Y_pred = new_model.predict(validation_generator, validation_generator.samples // BS + 1)
 y_pred = np.argmax(Y_pred, axis=1)
 print('Confusion Matrix')
 print(confusion_matrix(validation_generator.classes, y_pred))
