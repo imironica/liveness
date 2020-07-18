@@ -76,13 +76,13 @@ Confusion Matrix
 
 |         | Spoofed | Real |
 | ------- | :-----: | ---: |
-| Spoofed |  3579   |  734 |
-| Real    |   896   | 3019 |
+| Spoofed |  3960   |  353 |
+| Real    |   406   | 3509 |
 
 |         | Precision | Recall |
 | ------- | :-------: | -----: |
-| Spoofed |   0.80    |   0.83 |
-| Real    |   0.80    |   0.77 |
+| Spoofed |   0.91    |   0.92 |
+| Real    |   0.91    |   0.90 |
 
 ---
 
@@ -99,3 +99,8 @@ Confusion Matrix
 | ------- | :-------: | -----: |
 | Spoofed |   0.84    |   0.90 |
 | Real    |   0.88    |   0.84 |
+
+> Packages
+>
+> - tensorflow version 2.2.0
+> - keras version 2.4.3
