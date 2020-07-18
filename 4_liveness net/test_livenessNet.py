@@ -10,15 +10,13 @@ import cv2
 import os
 import dlib
 
-model_path = './liveness.model'
-label_encoder = './le.pickle'
+model_path = './liveness_model.h5'
 
 #load face detector
 hog_detector = dlib.get_frontal_face_detector()
 
 print("[INFO] loading trained model liveness detector...")
 model = load_model(model_path)
-le = pickle.loads(open(label_encoder, "rb").read())
 currentFolder = './test_net'
 imagePaths = list(paths.list_images(currentFolder))
 
@@ -34,8 +32,9 @@ for imagePath in imagePaths:
             face = img_to_array(face_crop)
             face = np.expand_dims(face, axis=0)
             preds = model.predict(face)
-            j = np.argmax(preds)
-            label = le.classes_[j]
+            predicted_class_indices=np.argmax(preds,axis=1)
+            if(predicted_class_indices[0] == 1):
+                print('real')
+            else:
+                print('fake')
             print(imagePath)
-            print(label)
-            print('--------')
